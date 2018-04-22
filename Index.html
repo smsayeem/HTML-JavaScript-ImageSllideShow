@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Image Slideshow</title>
+    <style type="text/css">
+
+        img{
+
+            height: 500px;
+            width: 700px;
+        }
+        #content{               /*to keep the content in the centre*/
+            max-width: 700px;
+            margin: auto;
+        }
+        h1{
+          text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <header><h1>Image Slideshow</h1></header>
+    <div id="content">
+       <img id="image" src="Images/1.jpg"/>
+        <!-- <br /> -->
+        <input id="start" type="button" value="Start slide show" onclick="startSlideShow()" />
+        <input id="stop" type="button" value="Stop slide show" onclick="stopSlideShow()" display='none' />
+
+        <!-- <br /> -->
+        <!-- <div id="imageName"></div> -->
+        <span id="imageName"></span>
+    </div>
+
+    <script type="text/javascript">
+        var intervalID;
+
+        function startSlideShow() {
+            intervalID = setInterval(changeImage,1000);
+            document.getElementById("start").style.display = "none";
+            document.getElementById("stop").style.display = "block";
+
+        }
+
+        function stopSlideShow() {
+            clearInterval(intervalID);
+            document.getElementById("start").style.display = "block";
+            document.getElementById("stop").style.display = "none";
+        }
+
+            //slideshow function
+        function changeImage() {
+
+            var imageSrc = document.getElementById("image").getAttribute("src");
+            var currentImageNumber = imageSrc.substring(imageSrc.lastIndexOf("/") + 1, imageSrc.lastIndexOf("."));
+            if (currentImageNumber == 10) {
+                currentImageNumber = 0;
+            }
+            var newImage = "Images/" + (Number(currentImageNumber) + 1) + ".jpg";
+                //to display image name
+            document.getElementById("imageName").innerHTML = newImage;
+                //to display the next image
+            document.getElementById("image").setAttribute("src", newImage );
+        }
+    </script>
+
+</body>
+</html>
